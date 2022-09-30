@@ -1,15 +1,17 @@
 package demo.selenium.methods;
 
 import demo.selenium.driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-
 import java.time.Duration;
 
 public class Methods {
 
+    private static final Logger logger = LogManager.getLogger(Methods.class);
     WebDriver webDriver;
     FluentWait<WebDriver> fluentWait;
     JavascriptExecutor jsDriver;
@@ -42,11 +44,13 @@ public class Methods {
     public void sendKeys(By by, String text){
 
         findElementWait(by).sendKeys(text);
+        logger.info(by.toString() + " elementine " + text + " texti yazıldı");
     }
 
     public void click(By by){
 
         findElementWait(by).click();
+        logger.info(by.toString() + " elementine tıklandı");
     }
 
     public String getText(By by){
@@ -57,6 +61,7 @@ public class Methods {
     public void clear(By by){
 
         findElementWait(by).clear();
+        logger.info(by.toString() + " elementinin input alanı temizlendi");
     }
 
     public String getAttribute(By by, String attribute){
@@ -83,6 +88,41 @@ public class Methods {
         jsDriver.executeScript(
                 "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});",
                 webElement);
+    }
+
+    public void urlToBe(String url, long timeout){
+
+        setFluentWait(timeout).until(ExpectedConditions.urlToBe(url));
+    }
+
+    public void navigateTo(String url){
+
+        webDriver.navigate().to(url);
+    }
+
+    public void navigateRefresh(){
+
+        webDriver.navigate().refresh();
+    }
+
+    public boolean isElementVisible(By by, long timeout){
+
+        try {
+            setFluentWait(timeout).until(ExpectedConditions.visibilityOfElementLocated(by));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public boolean isElementClickable(By by, long timeout){
+
+        try {
+            setFluentWait(timeout).until(ExpectedConditions.elementToBeClickable(by));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }
