@@ -17,7 +17,6 @@ public class SeleniumTest extends Driver {
     public void test(){
 
         init();
-        guestPage.pazarlamaSayfasinaGit();
         guestPage.pazarlamaSayfaKontrol();
         guestPage.clickLoginButton();
         loginPage.loginPageControl();

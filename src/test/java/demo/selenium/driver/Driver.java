@@ -41,6 +41,7 @@ public class Driver {
         webDriver.manage().window().maximize();
         webDriver.get("https://pazarlama.migrosnext.com/");
         setTestBoxCookies();
+        webDriver.navigate().refresh();
     }
 
     @AfterEach

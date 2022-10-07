@@ -79,7 +79,7 @@ public class Methods {
     public void scrollElement(By by){
 
         WebElement webElement = findElementWait(by);
-        jsDriver.executeScript("arguments[0].scrollIntoView();", webElement);
+        jsDriver.executeScript("arguments[0].scrollIntoView();",webElement);
     }
 
     public void scrollElementCenter(By by){
